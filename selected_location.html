@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Location</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <style>
+        #map { height: 600px; width: 100%; }
+        body { font-family: Arial, sans-serif; }
+    </style>
+</head>
+<body>
+    <h1>Select a Location</h1>
+    <p>Double-click on the map to select the delivery location.</p>
+    <div id="map"></div>
+
+    <!-- Hidden input field to store the selected coordinates -->
+    <input type="hidden" id="coords" />
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([29.39, 79.46], 12); // Default to Nainital (adjust as needed)
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Double-click event to capture coordinates
+        map.on('dblclick', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+            var coords = [lat, lng];
+
+            // Store the selected coordinates in the hidden input field
+            document.getElementById('coords').value = JSON.stringify(coords);
+            
+            // Log coordinates (for browser console debugging)
+            console.log("Coordinates selected: " + coords);
+        });
+
+        // Function to send coordinates back to Python (via form submission or file)
+        function submitCoords() {
+            var selectedCoords = document.getElementById('coords').value;
+            if (selectedCoords) {
+                console.log("Submitting coordinates to Python: " + selectedCoords);
+                // Optionally trigger form submission or use other methods to send the data back to Python
+            } else {
+                alert("No location selected yet!");
+            }
+        }
+    </script>
+</body>
+</html>
+
