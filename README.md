@@ -1,2 +1,3 @@
 # REVIVE-CODE
- 
+## Code for 24 hr hackathon on 5th September 2024, all coding was done by me.
+### Features include an online map to track drone, input coordinates which show up on said map and a line that shows the smallest path to it using Djikstra's algorithm and uses Heeight from sea level as path weight aswell, also displays data from all sensors on-drone and multiple smaller features added as well.
